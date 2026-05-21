@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="pt-BR"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Sorteador de Números&lt;/title&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>*{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin:0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-sizing:border-box;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: Arial, Helvetica, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>body{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height:100vh;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg,#4f46e5,#7c3aed);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content:center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items:center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.container{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:white;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width:500px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius:20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:35px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:0 10px 40px rgba(0,0,0,0.2);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align:center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:32px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.subtitle{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#666;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:30px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.inputs{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap:15px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:20px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.input-group{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex:1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>label{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:block;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:8px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#444;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>input{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border:2px solid #ddd;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius:12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition:0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>input:focus{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>outline:none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-color:#4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.extra-options{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:25px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.extra-options label{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items:center;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap:10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor:pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight:normal;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border:none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius:14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:white;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor:pointer;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition:0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button:hover{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#4338ca;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transform:translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.resultado{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top:30px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:25px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius:16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#f3f4f6;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>animation: aparecer 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.numero{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size:64px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top:10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.historico{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-top:30px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.historico h3{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#444;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.lista{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap:wrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap:10px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.item{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background:#e0e7ff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color:#3730a3;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius:10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes aparecer{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>from{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>opacity:0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>transform:scale(0.9);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>to{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>opacity:1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>transform:scale(1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media(max-width:500px){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.inputs{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>flex-direction:column;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>.numero{</p>
+<p class="p1"><span class="Apple-converted-space">        </span>font-size:48px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="container"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;🎲 Sorteador&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="subtitle"&gt;Sorteie números aleatórios rapidamente&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="inputs"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;De&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="min" value="1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Até&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="max" value="100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="extra-options"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="checkbox" id="naoRepetir"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Não repetir números</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="sortearNumero()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>Sortear Número</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="resultado" id="resultado"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;Número sorteado:&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="numero" id="numero"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="historico"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3&gt;Histórico&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="lista" id="lista"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let numerosSorteados = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let primeiroSorteio = true;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function sortearNumero(){</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const min = parseInt(document.getElementById("min").value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const max = parseInt(document.getElementById("max").value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const naoRepetir = document.getElementById("naoRepetir").checked;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(min &gt;= max){</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert("O número inicial deve ser menor que o final.");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>let numero;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// PRIMEIRO SORTEIO SEMPRE SERÁ 2</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if(primeiroSorteio){</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>numero = 2;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>primeiroSorteio = false;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>}else{</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if(naoRepetir){</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>const totalPossivel = max - min + 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if(numerosSorteados.length &gt;= totalPossivel){</p>
+<p class="p1"><span class="Apple-converted-space">            </span>alert("Todos os números já foram sorteados!");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>do{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>numero = gerarNumero(min,max);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}while(numerosSorteados.includes(numero));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}else{</p>
+<p class="p1"><span class="Apple-converted-space">          </span>numero = gerarNumero(min,max);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>numerosSorteados.push(numero);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("resultado").style.display = "block";</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("numero").innerText = numero;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>atualizarHistorico();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function gerarNumero(min,max){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return Math.floor(Math.random() * (max - min + 1)) + min;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function atualizarHistorico(){</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lista = document.getElementById("lista");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>lista.innerHTML = "";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>numerosSorteados</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.slice()</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.reverse()</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.forEach(num =&gt; {</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>const item = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">          </span>item.classList.add("item");</p>
+<p class="p1"><span class="Apple-converted-space">          </span>item.innerText = num;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>lista.appendChild(item);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
