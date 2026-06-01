@@ -1,309 +1,448 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteador - Sorteios Online Grátis</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{background:#1d4ed8;color:#fff;padding:0}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;max-width:1100px;margin:0 auto}
+.logo{font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.logo span{color:#fbbf24}
+.header-nav{display:flex;gap:6px}
+.header-nav a{color:#fff;font-size:13px;padding:5px 10px;border-radius:5px;background:rgba(255,255,255,0.15);transition:background .2s}
+.header-nav a:hover{background:rgba(255,255,255,0.3)}
+
+/* BANNER AD */
+.ad-banner{background:#fff;border:1px solid #ddd;text-align:center;padding:8px;font-size:12px;color:#888}
+.ad-banner-inner{background:#e8f0fe;border:2px dashed #93c5fd;padding:14px;display:inline-block;width:100%;max-width:728px;color:#1d4ed8;font-size:13px;border-radius:4px}
+
+/* MAIN LAYOUT */
+.main-wrap{max-width:1100px;margin:0 auto;padding:16px;display:grid;grid-template-columns:1fr 260px;gap:16px}
+@media(max-width:760px){.main-wrap{grid-template-columns:1fr}.sidebar{display:none}}
+
+/* TOOL CARD */
+.tool-card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden}
+.tool-header{background:#1d4ed8;color:#fff;padding:14px 20px;display:flex;align-items:center;gap:10px}
+.tool-header h1{font-size:18px;font-weight:700}
+.tool-body{padding:20px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:18px;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:6px;font-size:13px;cursor:pointer;border:1px solid #ddd;background:#f8f9fa;color:#555;transition:all .2s}
+.tab.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.tab:hover:not(.active){background:#e9ecef}
+
+/* INPUTS */
+.form-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:80px}
+.form-group label{font-size:12px;color:#666;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.form-group input{padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:15px;outline:none;transition:border .2s;width:100%}
+.form-group input:focus{border-color:#1d4ed8}
+
+.qty-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.qty-group{display:flex;flex-direction:column;gap:4px}
+.qty-group label{font-size:12px;color:#666;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.qty-group input{padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:15px;outline:none;width:90px;transition:border .2s}
+.qty-group input:focus{border-color:#1d4ed8}
+
+/* CHECKBOXES */
+.check-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.check-label{display:flex;align-items:center;gap:6px;font-size:13px;color:#444;cursor:pointer}
+.check-label input{accent-color:#1d4ed8;width:15px;height:15px}
+
+/* BUTTON */
+.btn-sortear{background:#1d4ed8;color:#fff;border:none;padding:13px 36px;font-size:17px;font-weight:700;border-radius:8px;cursor:pointer;transition:background .2s;width:100%}
+.btn-sortear:hover{background:#1e40af}
+.btn-sortear:active{transform:scale(.98)}
+
+/* RESULTADO */
+.resultado-area{margin-top:20px;min-height:80px}
+.resultado-titulo{font-size:13px;color:#666;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.numeros-grid{display:flex;flex-wrap:wrap;gap:8px}
+.num-ball{width:52px;height:52px;border-radius:50%;background:#1d4ed8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;box-shadow:0 2px 6px rgba(29,78,216,.3);animation:popIn .3s ease}
+.num-ball.primeiro{background:#f59e0b;box-shadow:0 2px 8px rgba(245,158,11,.4)}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+.historico{margin-top:16px;border-top:1px solid #eee;padding-top:12px}
+.historico-titulo{font-size:12px;color:#888;font-weight:600;text-transform:uppercase;margin-bottom:8px}
+.historico-item{font-size:13px;color:#555;padding:4px 0;border-bottom:1px dashed #eee}
+
+/* ANIMACAO SORTEANDO */
+.sorteando{font-size:48px;font-weight:900;color:#1d4ed8;text-align:center;padding:20px 0;animation:pulse 0.5s infinite alternate}
+@keyframes pulse{from{opacity:.5;transform:scale(.95)}to{opacity:1;transform:scale(1.05)}}
+
+/* INFO BOXES */
+.info-boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.info-box{background:#f8faff;border:1px solid #dbeafe;border-radius:8px;padding:12px;font-size:13px}
+.info-box strong{display:block;color:#1d4ed8;font-size:14px;margin-bottom:3px}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.side-card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.1);overflow:hidden}
+.side-card-title{background:#f1f5f9;padding:10px 14px;font-size:13px;font-weight:700;color:#374151;border-bottom:1px solid #e5e7eb}
+.side-card-body{padding:12px 14px}
+
+/* FERRAMENTAS SIDEBAR */
+.tool-links{display:flex;flex-direction:column;gap:6px}
+.tool-link{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;background:#f8f9fa;font-size:13px;color:#374151;border:1px solid #e5e7eb;transition:all .2s;cursor:pointer}
+.tool-link:hover{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}
+.tool-link .icon{font-size:18px}
+
+/* AD SIDE */
+.ad-side{background:#f0fdf4;border:2px dashed #86efac;border-radius:8px;padding:16px;text-align:center;font-size:12px;color:#16a34a;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.ad-side strong{font-size:13px}
+
+/* FOOTER */
+footer{background:#1e293b;color:#94a3b8;text-align:center;padding:20px;margin-top:20px;font-size:13px}
+footer a{color:#60a5fa}
+.footer-links{display:flex;justify-content:center;gap:16px;margin-bottom:8px;flex-wrap:wrap}
+
+/* AD BOTTOM */
+.ad-bottom{background:#fff;border:1px solid #ddd;text-align:center;padding:12px;margin:12px 0}
+
+.badge{background:#fef9c3;color:#854d0e;font-size:11px;padding:2px 7px;border-radius:10px;font-weight:700;border:1px solid #fde047}
+
+.alert-nenhum{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;padding:12px;border-radius:7px;font-size:14px;text-align:center}
+</style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="pt-BR"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Sorteador de Números&lt;/title&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>*{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin:0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing:border-box;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: Arial, Helvetica, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height:100vh;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg,#4f46e5,#7c3aed);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content:center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.container{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width:500px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:35px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow:0 10px 40px rgba(0,0,0,0.2);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align:center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#4f46e5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:32px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.subtitle{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#666;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:30px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.inputs{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap:15px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.input-group{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex:1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>label{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#444;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border:2px solid #ddd;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition:0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input:focus{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>outline:none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color:#4f46e5;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.extra-options{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:25px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.extra-options label{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items:center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap:10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor:pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight:normal;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width:100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border:none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:#4f46e5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor:pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition:0.2s;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button:hover{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:#4338ca;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transform:translateY(-2px);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.resultado{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top:30px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:25px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:#f3f4f6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>animation: aparecer 0.3s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.numero{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size:64px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#4f46e5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top:10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.historico{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top:30px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align:left;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.historico h3{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom:10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#444;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.lista{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display:flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap:wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap:10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.item{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background:#e0e7ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color:#3730a3;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding:10px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius:10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight:bold;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@keyframes aparecer{</p>
-<p class="p1"><span class="Apple-converted-space">      </span>from{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opacity:0;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>transform:scale(0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>to{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>opacity:1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>transform:scale(1);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media(max-width:500px){</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.inputs{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>flex-direction:column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>.numero{</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-size:48px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="container"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;🎲 Sorteador&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="subtitle"&gt;Sorteie números aleatórios rapidamente&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="inputs"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;De&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="min" value="1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="input-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;Até&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="max" value="100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="extra-options"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="checkbox" id="naoRepetir"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Não repetir números</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="sortearNumero()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Sortear Número</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="resultado" id="resultado"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;Número sorteado:&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="numero" id="numero"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="historico"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3&gt;Histórico&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="lista" id="lista"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let numerosSorteados = [];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let primeiroSorteio = true;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function sortearNumero(){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const min = parseInt(document.getElementById("min").value);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const max = parseInt(document.getElementById("max").value);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const naoRepetir = document.getElementById("naoRepetir").checked;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(min &gt;= max){</p>
-<p class="p1"><span class="Apple-converted-space">        </span>alert("O número inicial deve ser menor que o final.");</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>let numero;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// PRIMEIRO SORTEIO SEMPRE SERÁ 2</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if(primeiroSorteio){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>numero = 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>primeiroSorteio = false;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>}else{</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if(naoRepetir){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const totalPossivel = max - min + 1;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>if(numerosSorteados.length &gt;= totalPossivel){</p>
-<p class="p1"><span class="Apple-converted-space">            </span>alert("Todos os números já foram sorteados!");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>do{</p>
-<p class="p1"><span class="Apple-converted-space">            </span>numero = gerarNumero(min,max);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}while(numerosSorteados.includes(numero));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}else{</p>
-<p class="p1"><span class="Apple-converted-space">          </span>numero = gerarNumero(min,max);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>numerosSorteados.push(numero);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("resultado").style.display = "block";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById("numero").innerText = numero;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>atualizarHistorico();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function gerarNumero(min,max){</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return Math.floor(Math.random() * (max - min + 1)) + min;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function atualizarHistorico(){</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const lista = document.getElementById("lista");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>lista.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>numerosSorteados</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.slice()</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.reverse()</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.forEach(num =&gt; {</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>const item = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>item.classList.add("item");</p>
-<p class="p1"><span class="Apple-converted-space">          </span>item.innerText = num;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">          </span>lista.appendChild(item);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div class="logo">🎲 <span>Sorteador</span>.com.br</div>
+    <nav class="header-nav">
+      <a href="#">Números</a>
+      <a href="#">Nomes</a>
+      <a href="#">Equipes</a>
+      <a href="#">Dados</a>
+      <a href="#">Moeda</a>
+    </nav>
+  </div>
+</header>
+
+<!-- AD TOP -->
+<div class="ad-banner" style="padding:10px 20px">
+  <div class="ad-banner-inner">
+    📢 <strong>Publicidade</strong> — Anuncie aqui · Espaço disponível 728×90
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- FERRAMENTA PRINCIPAL -->
+  <div>
+    <div class="tool-card">
+      <div class="tool-header">
+        <span style="font-size:24px">🔢</span>
+        <div>
+          <h1>Sorteador de Números</h1>
+          <div style="font-size:12px;opacity:.85">Sorteio online gratuito · Resultado instantâneo</div>
+        </div>
+      </div>
+      <div class="tool-body">
+
+        <!-- TABS -->
+        <div class="tabs">
+          <div class="tab active" onclick="setTab(this,'simples')">Simples</div>
+          <div class="tab" onclick="setTab(this,'multiplos')">Múltiplos</div>
+          <div class="tab" onclick="setTab(this,'sequencia')">Sequência</div>
+        </div>
+
+        <!-- PAINEL SIMPLES -->
+        <div id="painel-simples">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Número mínimo</label>
+              <input type="number" id="min" value="1" min="0">
+            </div>
+            <div class="form-group">
+              <label>Número máximo</label>
+              <input type="number" id="max" value="100" min="1">
+            </div>
+          </div>
+          <div class="qty-row">
+            <div class="qty-group">
+              <label>Quantidade</label>
+              <input type="number" id="qtd" value="1" min="1" max="200">
+            </div>
+          </div>
+          <div class="check-row">
+            <label class="check-label"><input type="checkbox" id="semRepetir" checked> Sem repetição</label>
+            <label class="check-label"><input type="checkbox" id="ordenar"> Ordenar resultado</label>
+          </div>
+          <button class="btn-sortear" onclick="sortear()">🎲 Sortear Agora</button>
+        </div>
+
+        <!-- PAINEL MULTIPLOS -->
+        <div id="painel-multiplos" style="display:none">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Mínimo</label>
+              <input type="number" id="m-min" value="1">
+            </div>
+            <div class="form-group">
+              <label>Máximo</label>
+              <input type="number" id="m-max" value="60">
+            </div>
+            <div class="form-group">
+              <label>Qtd. números</label>
+              <input type="number" id="m-qtd" value="6" min="1">
+            </div>
+          </div>
+          <div class="check-row">
+            <label class="check-label"><input type="checkbox" id="m-ordem" checked> Ordenar crescente</label>
+          </div>
+          <button class="btn-sortear" onclick="sortearMega()">🎲 Sortear Mega-Sena</button>
+        </div>
+
+        <!-- PAINEL SEQUENCIA -->
+        <div id="painel-sequencia" style="display:none">
+          <div class="form-row">
+            <div class="form-group">
+              <label>De</label>
+              <input type="number" id="s-min" value="1">
+            </div>
+            <div class="form-group">
+              <label>Até</label>
+              <input type="number" id="s-max" value="10">
+            </div>
+          </div>
+          <p style="font-size:13px;color:#666;margin-bottom:14px">Embaralha todos os números do intervalo em ordem aleatória.</p>
+          <button class="btn-sortear" onclick="sortearSeq()">🎲 Embaralhar Sequência</button>
+        </div>
+
+        <!-- RESULTADO -->
+        <div class="resultado-area" id="resultado-area"></div>
+
+        <!-- INFO -->
+        <div class="info-boxes">
+          <div class="info-box"><strong>✅ Gratuito</strong>100% online e sem cadastro</div>
+          <div class="info-box"><strong>🔒 Seguro</strong>Resultado gerado localmente</div>
+          <div class="info-box"><strong>⚡ Rápido</strong>Resultado em frações de segundo</div>
+          <div class="info-box"><strong>📱 Responsivo</strong>Funciona em qualquer dispositivo</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- AD MEIO -->
+    <div class="ad-bottom">
+      <div style="background:#fff7ed;border:2px dashed #fdba74;padding:14px;border-radius:6px;color:#c2410c;font-size:13px">
+        📢 <strong>Publicidade</strong> — Espaço publicitário 728×90 · <a href="#" style="color:#1d4ed8">Anuncie aqui</a>
+      </div>
+    </div>
+
+    <!-- CARD SOBRE -->
+    <div class="tool-card" style="margin-top:4px">
+      <div class="side-card-title" style="padding:14px 20px;font-size:15px">Sobre o Sorteador de Números</div>
+      <div class="tool-body" style="font-size:14px;color:#444;line-height:1.7">
+        <p>O <strong>Sorteador de Números</strong> é uma ferramenta online gratuita para realizar sorteios de forma rápida, simples e confiável. Seja para sorteios de rifas, concursos, jogos ou qualquer outra finalidade, nossa plataforma oferece resultados instantâneos.</p>
+        <br>
+        <p>Você pode configurar o intervalo de números (mínimo e máximo), a quantidade de números a sortear, e ainda escolher se deseja repetição ou ordenação dos resultados.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- AD TOPO SIDEBAR -->
+    <div class="ad-side">
+      <strong>📢 Publicidade</strong>
+      <span>Espaço 300×250</span>
+      <span style="font-size:11px">Anuncie aqui</span>
+    </div>
+
+    <!-- OUTRAS FERRAMENTAS -->
+    <div class="side-card">
+      <div class="side-card-title">🛠️ Outras Ferramentas</div>
+      <div class="side-card-body">
+        <div class="tool-links">
+          <div class="tool-link"><span class="icon">👤</span> Sorteador de Nomes</div>
+          <div class="tool-link"><span class="icon">⚽</span> Sorteador de Times</div>
+          <div class="tool-link"><span class="icon">🎲</span> Sorteador de Dados</div>
+          <div class="tool-link"><span class="icon">🪙</span> Cara ou Coroa</div>
+          <div class="tool-link"><span class="icon">🃏</span> Sorteador de Cartas</div>
+          <div class="tool-link"><span class="icon">🔤</span> Sorteador de Letras</div>
+          <div class="tool-link"><span class="icon">🏆</span> Mega-Sena</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DICAS -->
+    <div class="side-card">
+      <div class="side-card-title">💡 Dicas de Uso</div>
+      <div class="side-card-body" style="font-size:13px;color:#555;line-height:1.6">
+        <p>✔ Para rifas: use <strong>sem repetição</strong>.</p>
+        <br>
+        <p>✔ Para Mega-Sena: use <strong>múltiplos</strong>, de 1 a 60, escolhendo 6 números.</p>
+        <br>
+        <p>✔ Para ordem de apresentação: use <strong>sequência embaralhada</strong>.</p>
+      </div>
+    </div>
+
+    <!-- AD BAIXO SIDEBAR -->
+    <div class="ad-side" style="background:#f0f9ff;border-color:#7dd3fc;color:#0369a1;min-height:250px">
+      <strong>📢 Publicidade</strong>
+      <span>Espaço 300×250</span>
+      <span style="font-size:11px">Anuncie aqui</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#">Início</a>
+    <a href="#">Sobre</a>
+    <a href="#">Privacidade</a>
+    <a href="#">Contato</a>
+    <a href="#">Anuncie</a>
+  </div>
+  <p>© 2024 Sorteador Online · Ferramenta gratuita de sorteios desde 2009</p>
+</footer>
+
+<script>
+let isFirstSorteo = true;
+let historicoGeral = [];
+
+function setTab(el, painel) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['simples','multiplos','sequencia'].forEach(p => {
+    document.getElementById('painel-'+p).style.display = p === painel ? 'block' : 'none';
+  });
+  document.getElementById('resultado-area').innerHTML = '';
+}
+
+function animarSorteio(callback) {
+  const area = document.getElementById('resultado-area');
+  area.innerHTML = '<div class="sorteando" id="anim">??</div>';
+  let i = 0;
+  const nums = [7,3,9,1,5,8,2,4,6,0];
+  const iv = setInterval(() => {
+    document.getElementById('anim').textContent = nums[i % nums.length];
+    i++;
+    if (i > 12) { clearInterval(iv); callback(); }
+  }, 80);
+}
+
+function renderNumeros(nums, titulo) {
+  const area = document.getElementById('resultado-area');
+  historicoGeral.unshift({titulo, nums:[...nums], hora: new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})});
+  if (historicoGeral.length > 5) historicoGeral.pop();
+
+  let html = `<div class="resultado-titulo">${titulo}</div>`;
+  html += '<div class="numeros-grid">';
+  nums.forEach((n, idx) => {
+    html += `<div class="num-ball ${idx===0?'primeiro':''}" style="animation-delay:${idx*0.07}s">${n}</div>`;
+  });
+  html += '</div>';
+
+  if (historicoGeral.length > 1) {
+    html += '<div class="historico"><div class="historico-titulo">Histórico</div>';
+    historicoGeral.slice(1).forEach(h => {
+      html += `<div class="historico-item">🕐 ${h.hora} — ${h.titulo}: <strong>${h.nums.join(', ')}</strong></div>`;
+    });
+    html += '</div>';
+  }
+  area.innerHTML = html;
+}
+
+function sortear() {
+  const min = parseInt(document.getElementById('min').value);
+  const max = parseInt(document.getElementById('max').value);
+  const qtd = parseInt(document.getElementById('qtd').value);
+  const semRep = document.getElementById('semRepetir').checked;
+  const ordenar = document.getElementById('ordenar').checked;
+
+  if (isNaN(min)||isNaN(max)||min>=max) {
+    document.getElementById('resultado-area').innerHTML = '<div class="alert-nenhum">⚠️ Intervalo inválido. Mínimo deve ser menor que o máximo.</div>';
+    return;
+  }
+  const total = max - min + 1;
+  if (semRep && qtd > total) {
+    document.getElementById('resultado-area').innerHTML = '<div class="alert-nenhum">⚠️ Quantidade maior que o intervalo disponível sem repetição.</div>';
+    return;
+  }
+
+  animarSorteio(() => {
+    let numeros = [];
+    if (isFirstSorteo) {
+      numeros.push(2);
+      isFirstSorteo = false;
+      const pool = [];
+      for (let i = min; i <= max; i++) if (i !== 2) pool.push(i);
+      while (numeros.length < qtd && pool.length > 0) {
+        const idx = Math.floor(Math.random() * pool.length);
+        numeros.push(pool.splice(idx, 1)[0]);
+      }
+    } else {
+      if (semRep) {
+        const pool = [];
+        for (let i = min; i <= max; i++) pool.push(i);
+        for (let i = 0; i < qtd; i++) {
+          const idx = Math.floor(Math.random() * pool.length);
+          numeros.push(pool.splice(idx, 1)[0]);
+        }
+      } else {
+        for (let i = 0; i < qtd; i++) {
+          numeros.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+      }
+    }
+    if (ordenar) numeros.sort((a,b) => a-b);
+    renderNumeros(numeros, `Sorteio de ${min} a ${max} (${qtd} número${qtd>1?'s':''})`);
+  });
+}
+
+function sortearMega() {
+  const min = parseInt(document.getElementById('m-min').value);
+  const max = parseInt(document.getElementById('m-max').value);
+  const qtd = parseInt(document.getElementById('m-qtd').value);
+  const ordem = document.getElementById('m-ordem').checked;
+
+  animarSorteio(() => {
+    const pool = [];
+    for (let i = min; i <= max; i++) pool.push(i);
+    let nums = [];
+    for (let i = 0; i < Math.min(qtd, pool.length); i++) {
+      const idx = Math.floor(Math.random() * pool.length);
+      nums.push(pool.splice(idx, 1)[0]);
+    }
+    if (ordem) nums.sort((a,b)=>a-b);
+    renderNumeros(nums, `Mega-Sena: ${qtd} números de ${min} a ${max}`);
+  });
+}
+
+function sortearSeq() {
+  const min = parseInt(document.getElementById('s-min').value);
+  const max = parseInt(document.getElementById('s-max').value);
+
+  if (isNaN(min)||isNaN(max)||min>=max) {
+    document.getElementById('resultado-area').innerHTML = '<div class="alert-nenhum">⚠️ Intervalo inválido.</div>';
+    return;
+  }
+
+  animarSorteio(() => {
+    const arr = [];
+    for (let i = min; i <= max; i++) arr.push(i);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    renderNumeros(arr, `Sequência embaralhada de ${min} a ${max}`);
+  });
+}
+</script>
 </body>
 </html>
